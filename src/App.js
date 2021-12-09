@@ -2,10 +2,12 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 import './App.css';
 import RepoDetails from "./RepoDetails";
+import { render } from "react-dom";
 function App() {
   const [username,setUsername]=useState("");
   const [loading,setLoading]=useState(false);
   const [repos,setRepos]=useState([]);
+  const [bookrepos,setbookRepos]=useState([]);
   const [details,setDetails]=useState({});
   const [branch,setBranch]=useState([]);
   const [commit,setCommit]=useState([]);
@@ -16,6 +18,16 @@ function App() {
     setDetails({});
   },[username]);
   
+  useEffect(()=>{
+    const fetchRepos= async ()=>{
+      setLoading(true);
+      const response=await fetch('http://localhost:5000/repoAdd');
+      const repoData=await response.json();
+      setbookRepos(repoData);
+      setLoading(false);
+    };
+    fetchRepos();
+  },[]);
   function handleSubmit(e){
     e.preventDefault();
     searchRepos();
