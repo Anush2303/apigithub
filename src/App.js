@@ -41,6 +41,11 @@ function App() {
       setLoading(false);
       setRepos(res.data);
     })
+    .catch(err=>{
+      setLoading(false);
+      alert('Uername not found!...Enter a valid username');
+      console.log(err);
+    })
   }
   function renderRepo(repo)
   {
